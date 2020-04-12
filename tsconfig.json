@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./packages",
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": true,
+        "paths": {
+            "@mardox/cli": [
+                "cli/src"
+            ],
+            "@mardox/core": [
+                "core/src"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+    ]
+}

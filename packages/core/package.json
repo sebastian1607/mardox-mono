@@ -1,0 +1,26 @@
+{
+  "name": "@mardox/core",
+  "version": "0.0.0",
+  "description": "Core functionality for mardox",
+  "author": "Sebastian Kempken <sebastian@kempken.one>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "test": "jest --config=../../jest.json"
+  },
+  "dependencies": {
+    "puppeteer": "^2.1.1",
+    "remarkable": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^2.0.1"
+  }
+}

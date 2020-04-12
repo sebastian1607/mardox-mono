@@ -1,0 +1,22 @@
+{
+  "name": "@mardox/cli",
+  "version": "0.0.0",
+  "description": "Command line interface for mardox",
+  "author": "Sebastian Kempken <sebastian@kempken.one>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "node lib/index.js",
+    "tsc": "tsc",
+    "test": "jest --passWithNoTests"
+  },
+  "bin": {
+    "markup-it": "./lib/index.js"
+  },
+  "dependencies": {
+    "@mardox/core": "0.0.0",
+    "chalk": "^3.0.0",
+    "commander": "^5.0.0"
+  }
+}
