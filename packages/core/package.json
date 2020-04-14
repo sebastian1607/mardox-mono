@@ -5,16 +5,17 @@
   "author": "Sebastian Kempken <sebastian@kempken.one>",
   "homepage": "",
   "license": "ISC",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "directories": {
     "src": "src"
   },
-  "files": [
-    "lib"
-  ],
   "scripts": {
-    "tsc": "tsc",
-    "test": "jest --config=../../jest.json"
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "puppeteer": "^2.1.1",

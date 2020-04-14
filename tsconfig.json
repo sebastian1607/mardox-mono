@@ -1,19 +1,11 @@
 {
+    "extends": "./tsconfig.build.json",
     "compilerOptions": {
         "baseUrl": "./packages",
-        "module": "commonjs",
-        "target": "es5",
-        "sourceMap": true,
         "paths": {
-            "@mardox/cli": [
-                "cli/src"
-            ],
-            "@mardox/core": [
-                "core/src"
+            "@mardox/*": [
+                "*/src"
             ]
         }
-    },
-    "exclude": [
-        "node_modules",
-    ]
+    }
 }

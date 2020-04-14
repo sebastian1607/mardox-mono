@@ -1,22 +1,21 @@
 #!/usr/bin/env node
-import { convert, Options } from '@mardox/core';
-import { program } from 'commander';
+import { process as mardoxProcess, Options } from '@mardox/core';
+import { program, Command } from 'commander';
+import { allParams, CliParam } from './cli-params';
 
-program
-    .option('--file <inputFile>', 'File to convert')
-    .option('--out <outputFile>', 'Output file')
-    .parse(process.argv);
+allParams.forEach((param: CliParam) =>
+    program.option(`-${param.short}, --${param.long}`, param.description)
+);
 
-if (!program.file) throw Error("No input File provided. Use --file to provide a file")
+program.parse(process.argv);
 
-const options: Options = {
-    inputFile: program.inputFile,
-}
-if (program.out === true) {
-    options.outputFile = program.out
-}
-convert(options);
+const options = allParams.reduce(
+    (accumulator: Options, param: CliParam) =>
+        Object.assign(accumulator, param.mapping(program)),
+    {} as Options
+);
 
+if (!program.file)
+    throw Error('No input File provided. Use --file to provide a file');
 
-
-
+mardoxProcess(options);
