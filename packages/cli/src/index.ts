@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { process as mardoxProcess, Options } from '@mardox/core';
-import { program, Command } from 'commander';
+import { Options, process as mardoxProcess } from '@mardox/core';
+import { program } from 'commander';
 import { allParams, CliParam } from './cli-params';
 
 allParams.forEach((param: CliParam) =>

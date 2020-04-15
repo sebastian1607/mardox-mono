@@ -1,26 +1,27 @@
 {
-  "name": "@mardox/cli",
-  "version": "0.0.0",
-  "description": "Command line interface for mardox",
-  "author": "Sebastian Kempken <sebastian@kempken.one>",
-  "homepage": "",
-  "license": "ISC",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "npm run clean && npm run compile",
-    "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
-    "compile": "tsc -p tsconfig.build.json",
-    "test": "jest --config=./jest.json"
-  },
-  "bin": {
-    "mardox": "./dist/index.js"
-  },
-  "dependencies": {
-    "@mardox/core": "0.0.0",
-    "chalk": "^3.0.0",
-    "commander": "^5.0.0"
-  },
-  "devDependencies": {
-    "typescript": "^3.8.3"
-  }
+    "name": "@mardox/cli",
+    "version": "0.0.0",
+    "description": "Command line interface for mardox",
+    "author": "Sebastian Kempken <sebastian@kempken.one>",
+    "homepage": "",
+    "license": "ISC",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "npm run clean && npm run compile",
+        "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+        "compile": "tsc -p tsconfig.build.json",
+        "test": "jest --config=./jest.json"
+    },
+    "bin": {
+        "mardox": "./dist/index.js"
+    },
+    "dependencies": {
+        "@mardox/core": "0.0.0",
+        "chalk": "^3.0.0",
+        "commander": "^5.0.0"
+    },
+    "devDependencies": {
+        "typescript": "^3.8.3",
+        "jest": "^25.3.0"
+    }
 }

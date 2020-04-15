@@ -1,6 +1,6 @@
 import * as fspath from 'path';
 
-const isAbsolutePath = (path: string): boolean =>
+export const isAbsolutePath = (path: string): boolean =>
     fspath.resolve(path) === fspath.normalize(path);
 
 export const patchPath = (path: string): string => {
