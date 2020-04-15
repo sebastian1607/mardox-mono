@@ -1,7 +1,7 @@
-import * as params from './params';
-import { Command } from 'commander';
 import { Options } from '@mardox/core';
+import { Command } from 'commander';
 import { patchPath } from '../path-utils';
+import * as params from './params';
 
 jest.mock('../path-utils');
 
@@ -24,6 +24,12 @@ describe('params should', () => {
         (patchPath as jest.Mock).mockReturnValue(fileName);
         const result: Partial<Options> = params.outParam.mapping(command);
         expect(result.outputFile).toBe(fileName);
+    });
+
+    test('map -o correct based on -f', () => {
+        (patchPath as jest.Mock).mockReturnValue('/a/b/newFileOut.md');
+        const result: Partial<Options> = params.outParam.mapping(command);
+        expect(result.outputFile).toBe('/a/b/newFileOut.pdf');
     });
 
     test('map -v correct', () => {
