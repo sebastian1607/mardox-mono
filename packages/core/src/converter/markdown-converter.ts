@@ -5,7 +5,9 @@ import { readFile } from '../file-reader';
 import { print } from '../html-printer';
 
 const convertMarkdown = (markdown: string) => {
-    const md: Remarkable = new Remarkable();
+    const md: Remarkable = new Remarkable({
+        html: true,
+    });
     const html = md.render(markdown);
     return html;
 };
@@ -13,9 +15,9 @@ const convertMarkdown = (markdown: string) => {
 class MarkdownConverter implements Converter {
     fileEnding = '.md';
     convert(options: Options): void {
-        const markdown = readFile(options);
-        const html = convertMarkdown(markdown);
-        print(options, html);
+        const fileContent = readFile(options);
+        const convertedMarkdown = convertMarkdown(fileContent);
+        print(options, convertedMarkdown);
     }
 }
 

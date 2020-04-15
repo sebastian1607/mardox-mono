@@ -4,6 +4,11 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream --scope=@mardox/{core,cli}",
+    "build:core": "lerna run build --scope=@mardox/core",
+    "build:cli": "lerna run build --scope=@mardox/cli",
+    "test": "lerna run --scope=@mardox/cli test",
+    "test:core": "lerna run test --scope=@mardox/core",
+    "test:cli": "lerna run test --scope=@mardox/cli",
     "prettier": "prettier --write 'packages/*/src/**/*.ts'"
   },
   "devDependencies": {

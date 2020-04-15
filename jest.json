@@ -8,7 +8,10 @@
     },
     "globals": {
         "ts-jest": {
-            "tsConfig": "tsconfig.json"
+            "tsConfig": "tsconfig.build.json"
         }
+    },
+    "moduleNameMapper": {
+        "@mardox/(.+)$": "<rootDir>packages/$1/src"
     }
 }
