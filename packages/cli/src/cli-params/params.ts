@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { patchPath } from '../path-utils';
+import { patchPath, splitPath } from '../path-utils';
 import { CliParam } from './model';
 
 export const fileParam: CliParam = {
@@ -7,8 +7,11 @@ export const fileParam: CliParam = {
     long: 'file <inputFile>',
     description: 'File to convert',
     mapping: (command: Command) => {
+        const completePath = patchPath(command.file);
+        const splitResult = splitPath(completePath);
         return {
-            inputFile: patchPath(command.file),
+            inputFile: completePath,
+            basePath: splitResult.basePath,
         };
     },
 };
@@ -19,10 +22,11 @@ export const outParam: CliParam = {
     description: 'Output file',
     mapping: (command: Command) => {
         let outFile;
-        if (command.out) {
+        if (command.out && command.out !== '') {
             outFile = patchPath(command.out);
         } else {
             const inputFile = patchPath(command.file);
+            inputFile.match(/$/);
             outFile = inputFile.replace(/(.*)\.(.*)$/g, '$1.pdf');
         }
         return {
@@ -38,6 +42,32 @@ export const verboseParam: CliParam = {
     mapping: (command: Command) => {
         return {
             verbose: command.verbose,
+        };
+    },
+};
+
+export const marginLeft: CliParam = {
+    short: 'ml',
+    long: 'marginLeft',
+    description: 'Margin Left',
+    mapping: (command: Command) => {
+        return {
+            margins: {
+                left: command.marginLeft,
+            },
+        };
+    },
+};
+
+export const marginTop: CliParam = {
+    short: 'mT',
+    long: 'marginTop',
+    description: 'Margin Top',
+    mapping: (command: Command) => {
+        return {
+            margins: {
+                top: command.marginTop,
+            },
         };
     },
 };

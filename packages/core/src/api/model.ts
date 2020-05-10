@@ -1,5 +1,6 @@
 export interface Options {
     inputFile: string;
+    basePath: string;
     outputFile?: string;
     encoding?: string;
     margins?: Margins;

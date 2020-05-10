@@ -15,6 +15,8 @@ const options = allParams.reduce(
     {} as Options
 );
 
+console.log(options);
+
 if (!program.file)
     throw Error('No input File provided. Use --file to provide a file');
 

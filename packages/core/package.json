@@ -1,27 +1,30 @@
 {
-  "name": "@mardox/core",
-  "version": "0.0.0",
-  "description": "Core functionality for mardox",
-  "author": "Sebastian Kempken <sebastian@kempken.one>",
-  "homepage": "",
-  "license": "ISC",
-  "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
-  "directories": {
-    "src": "src"
-  },
-  "scripts": {
-    "build": "npm run clean && npm run compile",
-    "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
-    "compile": "tsc -p tsconfig.build.json"
-  },
-  "dependencies": {
-    "puppeteer": "^2.1.1",
-    "remarkable": "^2.0.0"
-  },
-  "devDependencies": {
-    "@types/puppeteer": "^2.0.1"
-  }
+    "name": "@mardox/core",
+    "version": "0.0.0",
+    "description": "Core functionality for mardox",
+    "author": "Sebastian Kempken <sebastian@kempken.one>",
+    "homepage": "",
+    "license": "ISC",
+    "main": "dist/index.js",
+    "files": [
+        "dist"
+    ],
+    "directories": {
+        "src": "src"
+    },
+    "scripts": {
+        "build": "npm run clean && npm run compile",
+        "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+        "compile": "tsc -p tsconfig.build.json",
+        "test": "jest --clearCache && jest --config=./jest.json --colors"
+    },
+    "dependencies": {
+        "domutils": "^2.0.0",
+        "htmlparser2": "^4.1.0",
+        "puppeteer": "^2.1.1",
+        "remarkable": "^2.0.0"
+    },
+    "devDependencies": {
+        "@types/puppeteer": "^2.0.1"
+    }
 }

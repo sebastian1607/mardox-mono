@@ -1,5 +1,6 @@
 import * as fspath from 'path';
 import * as unitToTest from './path-utils';
+import { SplitResult } from './path-utils';
 
 const buildPath = (...fragments: Array<string>) => fragments.join(fspath.sep);
 
@@ -29,5 +30,17 @@ describe('path utils should', () => {
     `('patch path: $path', ({ path, expectation }) => {
         const result = unitToTest.patchPath(path);
         expect(result).toBe(expectation);
+    });
+
+    test('split path', () => {
+        const basePath = fspath.join('a', 'b', 'c');
+        const fileName = 'fileXYZ';
+        const fileEnding = 'md';
+        const result: SplitResult = unitToTest.splitPath(
+            `${basePath}${fspath.sep}${fileName}.${fileEnding}`
+        );
+        expect(result.basePath).toBe(basePath);
+        expect(result.file).toBe(fileName);
+        expect(result.fileEnding).toBe(fileEnding);
     });
 });

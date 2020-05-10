@@ -1,6 +1,6 @@
 import { Options } from '@mardox/core';
 import { Command } from 'commander';
-import { patchPath } from '../path-utils';
+import { patchPath, splitPath } from '../path-utils';
 import * as params from './params';
 
 jest.mock('../path-utils');
@@ -14,9 +14,12 @@ describe('params should', () => {
 
     test('map -f correct', () => {
         const fileName = 'a/b/newFileIn';
+        const basePath = 'a/b';
         (patchPath as jest.Mock).mockReturnValue(fileName);
+        (splitPath as jest.Mock).mockReturnValue({ basePath });
         const result: Partial<Options> = params.fileParam.mapping(command);
         expect(result.inputFile).toBe(fileName);
+        expect(result.basePath).toBe(basePath);
     });
 
     test('map -o correct', () => {

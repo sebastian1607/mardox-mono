@@ -1,4 +1,4 @@
-import { Options } from './model';
+import { Options } from '../api';
 
 export const DEFAULT_OPTIONS: Partial<Options> = {
     encoding: 'utf8',
