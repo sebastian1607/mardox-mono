@@ -16,6 +16,7 @@
         "build": "npm run clean && npm run compile",
         "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
         "compile": "tsc -p tsconfig.build.json",
+        "lint": "tslint -c tslint.json 'src/**/*.ts'",
         "test": "jest --clearCache && jest --config=./jest.json --colors"
     },
     "dependencies": {

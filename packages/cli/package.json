@@ -7,10 +7,11 @@
     "license": "ISC",
     "main": "dist/index.js",
     "scripts": {
-        "build": "npm run clean && npm run compile",
         "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
         "compile": "tsc -p tsconfig.build.json",
-        "test": "jest --clearCache && jest --config=./jest.json --colors"
+        "lint": "tslint -c tslint.json 'src/**/*.ts'",
+        "test": "jest --clearCache && jest --config=./jest.json --colors",
+        "build": "npm run clean && npm run compile"
     },
     "bin": {
         "mardox": "./dist/index.js"

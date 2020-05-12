@@ -2,13 +2,16 @@
     "name": "root",
     "private": true,
     "scripts": {
-        "bootstrap": "lerna bootstrap",
-        "build": "lerna run build --stream --scope=@mardox/{core,cli}",
-        "build:core": "lerna run build --scope=@mardox/core",
-        "build:cli": "lerna run build --scope=@mardox/cli",
-        "test": "lerna exec -- npm run test",
-        "test:core": "lerna exec --scope=@mardox/core -- npm run test",
-        "test:cli": "lerna exec --scope=@mardox/cli -- npm run test",
+        "bootstrap": "./node_modules/.bin/lerna bootstrap",
+        "build": "./node_modules/.bin/lerna run build --stream --scope=@mardox/{core,cli}",
+        "build:core": "./node_modules/.bin/lerna run build --scope=@mardox/core",
+        "build:cli": "./node_modules/.bin/lerna run build --scope=@mardox/cli",
+        "test": "./node_modules/.bin/lerna exec -- npm run test",
+        "test:core": "./node_modules/.bin/lerna exec --scope=@mardox/core -- npm run test",
+        "test:cli": "./node_modules/.bin/lerna exec --scope=@mardox/cli -- npm run test",
+        "lint": "./node_modules/.bin/lerna run lint --scope=@mardox/core",
+        "lint:core": "./node_modules/.bin/lerna run lint --scope=@mardox/core",
+        "lint:cli": "./node_modules/.bin/lerna run lint --scope=@mardox/cli",
         "prettier": "prettier --write 'packages/*/src/**/*.ts'"
     },
     "devDependencies": {
@@ -18,6 +21,7 @@
         "lerna": "^3.20.2",
         "prettier": "^2.0.4",
         "ts-jest": "^25.3.1",
+        "tslint": "^6.1.2",
         "typescript": "^3.8.3"
     }
 }

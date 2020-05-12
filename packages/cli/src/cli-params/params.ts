@@ -1,15 +1,37 @@
+import { Options } from '@mardox/core';
 import { Command } from 'commander';
 import { patchPath, splitPath } from '../path-utils';
-import { CliParam } from './model';
+import { CliParam, ParamKey } from './model';
+
+const buildParam = (
+    short: string,
+    long: string,
+    withParam = false
+): ParamKey => ({
+    short,
+    long,
+    parserInput: withParam ? `${long} <value>` : long,
+});
+
+const buildParamKey = (short: string, long: string): ParamKey => ({
+    short,
+    long,
+    parserInput: long,
+});
+
+const buildParamKeyWithValue = (short: string, long: string): ParamKey => ({
+    ...buildParamKey(short, long),
+    parserInput: `${long} <value>`,
+});
 
 export const fileParam: CliParam = {
-    short: 'f',
-    long: 'file <inputFile>',
+    ...buildParam('f', 'file', true),
     description: 'File to convert',
-    mapping: (command: Command) => {
+    mapping: (command: Command, options: Options) => {
         const completePath = patchPath(command.file);
         const splitResult = splitPath(completePath);
         return {
+            ...options,
             inputFile: completePath,
             basePath: splitResult.basePath,
         };
@@ -17,10 +39,10 @@ export const fileParam: CliParam = {
 };
 
 export const outParam: CliParam = {
-    short: 'o',
-    long: 'out <outFile>',
+    ...buildParam('o', 'out', true),
+    deriveIfMissing: true,
     description: 'Output file',
-    mapping: (command: Command) => {
+    mapping: (command: Command, options: Options) => {
         let outFile;
         if (command.out && command.out !== '') {
             outFile = patchPath(command.out);
@@ -30,29 +52,31 @@ export const outParam: CliParam = {
             outFile = inputFile.replace(/(.*)\.(.*)$/g, '$1.pdf');
         }
         return {
+            ...options,
             outputFile: outFile,
         };
     },
 };
 
 export const verboseParam: CliParam = {
-    short: 'v',
-    long: 'verbose',
+    ...buildParam('v', 'verbose'),
     description: 'Verbose output',
-    mapping: (command: Command) => {
+    mapping: (command: Command, options: Options) => {
         return {
+            ...options,
             verbose: command.verbose,
         };
     },
 };
 
 export const marginLeft: CliParam = {
-    short: 'ml',
-    long: 'marginLeft',
+    ...buildParam('ml', 'marginLeft', true),
     description: 'Margin Left',
-    mapping: (command: Command) => {
+    mapping: (command: Command, options: Options) => {
         return {
+            ...options,
             margins: {
+                ...options.margins,
                 left: command.marginLeft,
             },
         };
@@ -60,12 +84,13 @@ export const marginLeft: CliParam = {
 };
 
 export const marginTop: CliParam = {
-    short: 'mT',
-    long: 'marginTop',
+    ...buildParam('mt', 'marginTop', true),
     description: 'Margin Top',
-    mapping: (command: Command) => {
+    mapping: (command: Command, options: Options) => {
         return {
+            ...options,
             margins: {
+                ...options.margins,
                 top: command.marginTop,
             },
         };
