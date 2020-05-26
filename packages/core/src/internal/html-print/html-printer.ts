@@ -2,6 +2,7 @@ import { Element, Node } from 'domhandler';
 import { filter, getOuterHTML } from 'domutils';
 import { launch } from 'puppeteer';
 import { Options } from '../../api';
+import { convertPath as convertFile } from '../utils/file-reader';
 import { Inliner, INLINE_NODES } from './tag-inliner';
 
 export function print(options: Options, content: Node[]) {
@@ -19,7 +20,7 @@ export function print(options: Options, content: Node[]) {
         const page = await browser.newPage();
         await page.setContent(getOuterHTML(content));
         await page.pdf({
-            path: options.outputFile,
+            path: convertFile(options.outputFile),
             format: options.format,
             margin: options.margins,
         });

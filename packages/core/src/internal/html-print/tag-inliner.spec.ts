@@ -32,7 +32,7 @@ describe('Tag Inliner should', () => {
         const root = new Element('root', {});
         appendChild(root, element);
 
-        unitToTest.css.inline(element, [root], {} as Options);
+        unitToTest.css.inline(element, [root], { inputFile: {} } as Options);
 
         expect(getOuterHTML(root.children)).toBe(
             `<style>${fileContent}</style>`

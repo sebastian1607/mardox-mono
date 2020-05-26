@@ -2,7 +2,7 @@ import * as fspath from 'path';
 import * as unitToTest from './path-utils';
 import { SplitResult } from './path-utils';
 
-const buildPath = (...fragments: Array<string>) => fragments.join(fspath.sep);
+const buildPath = (...fragments: string[]) => fragments.join(fspath.sep);
 
 describe('path utils should', () => {
     it.each`

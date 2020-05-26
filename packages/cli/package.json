@@ -8,10 +8,10 @@
     "main": "dist/index.js",
     "scripts": {
         "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
-        "compile": "tsc -p tsconfig.build.json",
+        "compile": "npm run clean && tsc -p tsconfig.build.json",
         "lint": "tslint -c tslint.json 'src/**/*.ts'",
-        "test": "jest --clearCache && jest --config=./jest.json --colors",
-        "build": "npm run clean && npm run compile"
+        "test": "jest --clearCache && jest --config=../../jest.json --colors --testPathPattern=packages/cli/src",
+        "build": "npm run lint && npm run test && npm run compile"
     },
     "bin": {
         "mardox": "./dist/index.js"

@@ -1,11 +1,16 @@
 export interface Options {
-    inputFile: string;
-    basePath: string;
-    outputFile?: string;
+    inputFile: File;
+    outputFile?: File;
     encoding?: string;
     margins?: Margins;
     format?: PDFFormat;
     verbose?: boolean;
+}
+
+export interface File {
+    file: string;
+    path: string;
+    fileEnding: string;
 }
 
 export interface Margins {

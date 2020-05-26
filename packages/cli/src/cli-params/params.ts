@@ -1,66 +1,64 @@
 import { Options } from '@mardox/core';
 import { Command } from 'commander';
-import { patchPath, splitPath } from '../path-utils';
-import { CliParam, ParamKey } from './model';
+import { patchPath, splitPath, SplitResult } from '../path-utils';
+import { CliParam, valuePlaceHolder } from './model';
 
+interface ParamBuild {
+    short: string;
+    long: string;
+    description: string;
+}
 const buildParam = (
     short: string,
     long: string,
-    withParam = false
-): ParamKey => ({
+    description: string
+): ParamBuild => ({
     short,
     long,
-    parserInput: withParam ? `${long} <value>` : long,
+    description,
 });
 
-const buildParamKey = (short: string, long: string): ParamKey => ({
-    short,
-    long,
-    parserInput: long,
-});
-
-const buildParamKeyWithValue = (short: string, long: string): ParamKey => ({
-    ...buildParamKey(short, long),
-    parserInput: `${long} <value>`,
-});
+const buildArgsParam = (
+    short: string,
+    long: string,
+    description: string
+): ParamBuild => buildParam(short, `${long} ${valuePlaceHolder}`, description);
 
 export const fileParam: CliParam = {
-    ...buildParam('f', 'file', true),
-    description: 'File to convert',
+    ...buildArgsParam('f', 'file', 'File to convert'),
     mapping: (command: Command, options: Options) => {
         const completePath = patchPath(command.file);
-        const splitResult = splitPath(completePath);
+        const splitResult: SplitResult = splitPath(completePath);
         return {
             ...options,
-            inputFile: completePath,
-            basePath: splitResult.basePath,
+            inputFile: {
+                path: splitResult.basePath,
+                file: splitResult.file,
+                fileEnding: splitResult.fileEnding.toLowerCase(),
+            },
         };
     },
 };
 
 export const outParam: CliParam = {
-    ...buildParam('o', 'out', true),
+    ...buildArgsParam('o', 'out', 'Output file'),
     deriveIfMissing: true,
-    description: 'Output file',
     mapping: (command: Command, options: Options) => {
-        let outFile;
-        if (command.out && command.out !== '') {
-            outFile = patchPath(command.out);
-        } else {
-            const inputFile = patchPath(command.file);
-            inputFile.match(/$/);
-            outFile = inputFile.replace(/(.*)\.(.*)$/g, '$1.pdf');
-        }
+        const completePath = patchPath(command.out);
+        const splitResult: SplitResult = splitPath(completePath);
         return {
             ...options,
-            outputFile: outFile,
+            outputFile: {
+                path: splitResult.basePath,
+                file: splitResult.file,
+                fileEnding: splitResult.fileEnding.toLowerCase(),
+            },
         };
     },
 };
 
 export const verboseParam: CliParam = {
-    ...buildParam('v', 'verbose'),
-    description: 'Verbose output',
+    ...buildParam('v', 'verbose', 'Verbose output'),
     mapping: (command: Command, options: Options) => {
         return {
             ...options,
@@ -70,8 +68,7 @@ export const verboseParam: CliParam = {
 };
 
 export const marginLeft: CliParam = {
-    ...buildParam('ml', 'marginLeft', true),
-    description: 'Margin Left',
+    ...buildArgsParam('ml', 'marginLeft', 'Margin Left'),
     mapping: (command: Command, options: Options) => {
         return {
             ...options,
@@ -84,8 +81,7 @@ export const marginLeft: CliParam = {
 };
 
 export const marginTop: CliParam = {
-    ...buildParam('mt', 'marginTop', true),
-    description: 'Margin Top',
+    ...buildArgsParam('mt', 'marginTop', 'Margin Top'),
     mapping: (command: Command, options: Options) => {
         return {
             ...options,

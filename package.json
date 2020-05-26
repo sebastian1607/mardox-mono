@@ -3,6 +3,9 @@
     "private": true,
     "scripts": {
         "bootstrap": "./node_modules/.bin/lerna bootstrap",
+        "compile": "./node_modules/.bin/lerna run compile --stream --scope=@mardox/{core,cli}",
+        "compile:core": "./node_modules/.bin/lerna run compile --scope=@mardox/core",
+        "compile:cli": "./node_modules/.bin/lerna run compile --scope=@mardox/cli",
         "build": "./node_modules/.bin/lerna run build --stream --scope=@mardox/{core,cli}",
         "build:core": "./node_modules/.bin/lerna run build --scope=@mardox/core",
         "build:cli": "./node_modules/.bin/lerna run build --scope=@mardox/cli",
@@ -12,7 +15,7 @@
         "lint": "./node_modules/.bin/lerna run lint --scope=@mardox/core",
         "lint:core": "./node_modules/.bin/lerna run lint --scope=@mardox/core",
         "lint:cli": "./node_modules/.bin/lerna run lint --scope=@mardox/cli",
-        "prettier": "prettier --write 'packages/*/src/**/*.ts'"
+        "prettier": "./node_modules/.bin/prettier --write 'packages/*/src/**/*.ts'"
     },
     "devDependencies": {
         "@types/jest": "^25.2.1",

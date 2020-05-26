@@ -48,7 +48,7 @@ const removeEmptyPTags = (domRoot: Node[]): void => {
 };
 
 const converter: Converter = {
-    fileEnding: '.md',
+    fileEnding: 'md',
     convert(options: Options): Node[] {
         const fileContent = readFile(options.inputFile, options.encoding);
         const convertedMarkdown = addHtmlData(convertMarkdown(fileContent));

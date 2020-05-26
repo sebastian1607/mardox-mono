@@ -19,7 +19,7 @@ export interface SplitResult {
     fileEnding: string;
 }
 export const splitPath = (path: string): SplitResult => {
-    const regex = new RegExp(`^(.*)${fspath.sep}(.*)\\.(.*)$`);
+    const regex = new RegExp(`^(.*)\\${fspath.sep}(.*)\\.(.*)$`);
     const result = path.match(regex);
     return {
         basePath: result[1],

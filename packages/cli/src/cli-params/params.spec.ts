@@ -1,6 +1,6 @@
 import { Options } from '@mardox/core';
 import { Command } from 'commander';
-import { patchPath, splitPath } from '../path-utils';
+import { patchPath, splitPath, SplitResult } from '../path-utils';
 import * as params from './params';
 
 jest.mock('../path-utils');
@@ -13,26 +13,31 @@ describe('params should', () => {
     });
 
     test('map -f correct', () => {
-        const fileName = 'a/b/newFileIn';
-        const basePath = 'a/b';
-        (patchPath as jest.Mock).mockReturnValue(fileName);
-        (splitPath as jest.Mock).mockReturnValue({ basePath });
+        const splitResult: SplitResult = {
+            basePath: '/a/b/c',
+            file: 'xyz',
+            fileEnding: 'md',
+        };
+        (patchPath as jest.Mock).mockReturnValue('');
+        (splitPath as jest.Mock).mockReturnValue(splitResult);
         const result: Options = params.fileParam.mapping(command, {});
-        expect(result.inputFile).toBe(fileName);
-        expect(result.basePath).toBe(basePath);
+        expect(result.inputFile.file).toBe(splitResult.file);
+        expect(result.inputFile.fileEnding).toBe('md');
+        expect(result.inputFile.path).toBe(splitResult.basePath);
     });
 
     test('map -o correct', () => {
-        const fileName = 'a/b/newFileOut';
-        (patchPath as jest.Mock).mockReturnValue(fileName);
+        const splitResult: SplitResult = {
+            basePath: '/a/b/c',
+            file: 'xyz',
+            fileEnding: 'pdf',
+        };
+        (patchPath as jest.Mock).mockReturnValue('');
+        (splitPath as jest.Mock).mockReturnValue(splitResult);
         const result: Options = params.outParam.mapping(command, {});
-        expect(result.outputFile).toBe(fileName);
-    });
-
-    test('map -o correct based on -f', () => {
-        (patchPath as jest.Mock).mockReturnValue('/a/b/newFileOut.md');
-        const result: Options = params.outParam.mapping(command, {});
-        expect(result.outputFile).toBe('/a/b/newFileOut.pdf');
+        expect(result.outputFile.file).toBe(splitResult.file);
+        expect(result.outputFile.fileEnding).toBe('pdf');
+        expect(result.outputFile.path).toBe(splitResult.basePath);
     });
 
     test('map -v correct', () => {

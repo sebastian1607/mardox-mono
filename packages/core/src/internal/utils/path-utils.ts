@@ -11,7 +11,9 @@ export const patchPath = (
     if (path.includes(fspath.sep)) {
         result = isAbsolutePath(path) ? path : fspath.resolve(path);
     } else {
-        result = `${basePath}${fspath.sep}${path}`;
+        result = `${
+            basePath.endsWith(fspath.sep) ? basePath : basePath + fspath.sep
+        }${path}`;
     }
     return result;
 };

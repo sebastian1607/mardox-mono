@@ -5,9 +5,11 @@ const setDefaultOptionsIfNeeded = (options: Options): Options =>
     Object.assign(DEFAULT_OPTIONS, options);
 
 export function process(inputOptions: Options): void {
+    console.log(inputOptions);
     const options = setDefaultOptionsIfNeeded(inputOptions);
-    const converter = CONVERTER.find((converter) =>
-        options.inputFile.toLowerCase().endsWith(converter.fileEnding)
+    const converter = CONVERTER.find(
+        (converterItem) =>
+            options.inputFile.fileEnding === converterItem.fileEnding
     );
     if (!converter) {
         throw Error('Unknown file format!!');
