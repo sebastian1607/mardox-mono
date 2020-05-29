@@ -32,3 +32,9 @@ export type PDFFormat =
     | 'A4'
     | 'A5'
     | 'A6';
+
+export interface SplitResult {
+    basePath: string;
+    file: string;
+    fileEnding: string;
+}

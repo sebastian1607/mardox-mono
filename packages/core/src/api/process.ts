@@ -1,11 +1,21 @@
 import { CONVERTER, DEFAULT_OPTIONS, print } from '../internal';
 import { Options } from './model';
 
-const setDefaultOptionsIfNeeded = (options: Options): Options =>
-    Object.assign(DEFAULT_OPTIONS, options);
+const setDefaultOptionsIfNeeded = (options: Options): Options => {
+    let workingOptions: Options = Object.assign(DEFAULT_OPTIONS, options);
+    if (!workingOptions.outputFile) {
+        workingOptions = {
+            ...workingOptions,
+            outputFile: {
+                ...workingOptions.inputFile,
+                fileEnding: 'pdf',
+            },
+        };
+    }
+    return workingOptions;
+};
 
 export function process(inputOptions: Options): void {
-    console.log(inputOptions);
     const options = setDefaultOptionsIfNeeded(inputOptions);
     const converter = CONVERTER.find(
         (converterItem) =>

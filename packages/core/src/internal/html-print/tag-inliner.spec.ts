@@ -38,4 +38,19 @@ describe('Tag Inliner should', () => {
             `<style>${fileContent}</style>`
         );
     });
+
+    test('convert inline external img', () => {
+        const fileContent = '12345678';
+        const base64Encoding = Buffer.from(fileContent).toString('base64');
+        (readFile as jest.Mock).mockReturnValue(fileContent);
+        const element = new Element('img', { src: './pic.png' });
+        const root = new Element('root', {});
+        appendChild(root, element);
+
+        unitToTest.image.inline(element, [root], { inputFile: {} } as Options);
+
+        expect(getOuterHTML(root.children)).toBe(
+            `<img src="data:image/png;base64,${base64Encoding}">`
+        );
+    });
 });

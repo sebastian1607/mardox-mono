@@ -1,6 +1,5 @@
-import { Options } from '@mardox/core';
+import { Options, patchPath, splitPath, SplitResult } from '@mardox/core';
 import { Command } from 'commander';
-import { patchPath, splitPath, SplitResult } from '../path-utils';
 import { CliParam, valuePlaceHolder } from './model';
 
 interface ParamBuild {
@@ -88,6 +87,32 @@ export const marginTop: CliParam = {
             margins: {
                 ...options.margins,
                 top: command.marginTop,
+            },
+        };
+    },
+};
+
+export const marginRight: CliParam = {
+    ...buildArgsParam('mr', 'marginRight', 'Margin Right'),
+    mapping: (command: Command, options: Options) => {
+        return {
+            ...options,
+            margins: {
+                ...options.margins,
+                right: command.marginRight,
+            },
+        };
+    },
+};
+
+export const marginBottom: CliParam = {
+    ...buildArgsParam('mb', 'marginBottom', 'Margin Bottom'),
+    mapping: (command: Command, options: Options) => {
+        return {
+            ...options,
+            margins: {
+                ...options.margins,
+                bottom: command.marginBottom,
             },
         };
     },

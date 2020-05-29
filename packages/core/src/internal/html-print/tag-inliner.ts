@@ -2,8 +2,8 @@ import { DataNode, Element, Node } from 'domhandler';
 import { appendChild, replaceElement } from 'domutils';
 import { ElementType } from 'htmlparser2';
 import { Options } from '../../api';
+import { patchPath } from '../../api/utils/path-utils';
 import { readFile } from '../utils/file-reader';
-import { patchPath } from '../utils/path-utils';
 
 const isLocalRessource = (element: Element) => (
     name: string,
@@ -44,7 +44,6 @@ export const image: Inliner = {
 
         const filePath = patchPath(src, options.inputFile.path);
         const content = readFile(filePath, null);
-
         const base64Encoded = Buffer.from(content).toString('base64');
 
         const inlinedImg = new Element('img', {

@@ -1,9 +1,8 @@
-import { Options } from '@mardox/core';
+import { Options, patchPath, splitPath, SplitResult } from '@mardox/core';
 import { Command } from 'commander';
-import { patchPath, splitPath, SplitResult } from '../path-utils';
 import * as params from './params';
 
-jest.mock('../path-utils');
+jest.mock('@mardox/core');
 
 describe('params should', () => {
     let command: Command;
@@ -44,5 +43,29 @@ describe('params should', () => {
         command.verbose = true;
         const result: Options = params.verboseParam.mapping(command, {});
         expect(result.verbose).toBe(true);
+    });
+
+    test('map -ml correct', () => {
+        command.marginLeft = 10;
+        const result: Options = params.marginLeft.mapping(command, {});
+        expect(result.margins.left).toBe(10);
+    });
+
+    test('map -mt correct', () => {
+        command.marginTop = 10;
+        const result: Options = params.marginTop.mapping(command, {});
+        expect(result.margins.top).toBe(10);
+    });
+
+    test('map -mr correct', () => {
+        command.marginRight = 10;
+        const result: Options = params.marginRight.mapping(command, {});
+        expect(result.margins.right).toBe(10);
+    });
+
+    test('map -mb correct', () => {
+        command.marginBottom = 10;
+        const result: Options = params.marginBottom.mapping(command, {});
+        expect(result.margins.bottom).toBe(10);
     });
 });
