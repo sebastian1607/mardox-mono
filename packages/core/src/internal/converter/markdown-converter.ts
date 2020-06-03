@@ -19,6 +19,7 @@ const addHtmlData = (data: string) => `<html><head></head><body>${data}</body>`;
 const filterExternalCss = (nodes: Node[]): Node[] =>
     filter(
         (element: Element) =>
+            // tslint:disable-next-line:no-string-literal
             element.name === 'link' && element.attribs['href'] !== undefined,
         nodes,
         true
