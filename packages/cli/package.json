@@ -19,10 +19,15 @@
     "dependencies": {
         "@mardox/core": "0.0.0",
         "chalk": "^3.0.0",
-        "commander": "^5.0.0"
+        "commander": "^5.0.0",
+        "lodash": "^4.17.15"
     },
     "devDependencies": {
+        "@types/jest": "^25.2.1",
+        "@types/node": "^13.11.1",
+        "jest": "^25.3.0",
         "typescript": "^3.8.3",
-        "jest": "^25.3.0"
+        "ts-jest": "^25.3.1",
+        "tslint": "^6.1.2"
     }
 }
